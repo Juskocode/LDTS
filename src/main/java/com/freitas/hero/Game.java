@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.io.IOException;
 import java.rmi.server.ExportException;
 
+import com.freitas.hero.Hero;
+
 public class Game{
 
     private Screen screen;
@@ -20,7 +22,7 @@ public class Game{
     private TerminalSize terminalSize;
     private static int WIDTH = 75, HEIGHT = 25;
 
-    private int x, y;
+    Hero hero = new Hero(10, 10);
 
     Game() throws IOException{
         try{
@@ -36,56 +38,34 @@ public class Game{
             e.printStackTrace();
         }
     }
-    private boolean checkBoundories(int x, int y){
-        return (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT);
-    }
-    private void processKey(KeyStroke key) throws IOException {
-        if (key.getKeyType() == KeyType.ArrowUp){
-            if (y - 1 >= 0) {
-                y--;
-                return;
-            }
-            y = 0;
 
-        }
-        else if (key.getKeyType() == KeyType.ArrowDown){
-            if (y + 1 < HEIGHT) {
-                y++;
-                return;
+    private void moveHero(Position position) {
+        hero.setPosition(position);
+    }
+
+    private void processKey(KeyStroke key) throws IOException {
+        switch (key.getKeyType()){
+            case ArrowUp -> moveHero(hero.moveUp());
+            case ArrowDown -> moveHero(hero.moveDown());
+            case ArrowLeft -> moveHero(hero.moveLeft());
+            case ArrowRight -> moveHero(hero.moveRight());
+            case Character -> {
+                if(key.getCharacter() == 'q'){
+                    try{
+                        screen.close();
+                    } catch (ExportException e){
+                        e.printStackTrace();
+                    }
+                }
             }
-            y = HEIGHT - 1;
-        }
-        else if (key.getKeyType() == KeyType.ArrowLeft){
-            if (x - 1 >= 0) {
-                x--;
-                return;
-            }
-            x = 0;
-        }
-        else if (key.getKeyType() == KeyType.ArrowRight){
-            if (x + 1 < WIDTH) {
-                x++;
-                return;
-            }
-            x = WIDTH - 1;
-        }
-        else if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'){
-            try{
-                screen.close();
-            } catch (ExportException e){
-                e.printStackTrace();
-            }
-        }
-        else if(key.getKeyType() == KeyType.EOF){
-            System.exit(0);
+            case EOF -> System.exit(0);
         }
     }
 
     private void draw() throws IOException {
         try{
         screen.clear();
-        screen.setCharacter(x, y, TextCharacter.fromCharacter('X')
-                [0]);
+        hero.draw(screen);
         screen.refresh();
         } catch (IOException e){
             e.printStackTrace();
@@ -97,7 +77,7 @@ public class Game{
                 draw();
                 KeyStroke key = screen.readInput();
                 processKey(key);
-                System.out.println(x + " -> " + y);
+                System.out.println(hero.getPosition().getX() + " -> " + hero.getPosition().getY());
             }
             catch (IOException e){
                 e.printStackTrace();
