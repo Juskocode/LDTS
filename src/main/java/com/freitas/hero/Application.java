@@ -11,21 +11,7 @@ import java.io.IOException;
 
 public class Application {
     public static void main(String[] args) throws IOException {
-        try{
-            TerminalSize terminalSize = new TerminalSize(400, 200);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            Screen screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null); // we don't need a cursor
-            screen.startScreen(); // screens must be started
-            screen.doResizeIfNecessary(); // resize screen if necessary
-            screen.clear();
-            screen.setCharacter(10, 10, TextCharacter.fromCharacter('X')
-                    [0]);
-            screen.refresh();
-
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        Game game = new Game();
+        game.run();
     }
 }
