@@ -28,7 +28,6 @@ public class PauseMenuView extends DefaultMenuView {
         graphics.putString(new TerminalPosition(selectorPos.getX(), selectorPos.getY()), "->");
     }
 
-    @Override
     public void update(int updateInfo) {
         switch (updateInfo){
             case 0 -> selectorPos.setY(height/2);

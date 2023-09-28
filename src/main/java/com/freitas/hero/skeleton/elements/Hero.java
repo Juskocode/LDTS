@@ -44,10 +44,10 @@ public class Hero extends Element {
     }
 
     public void draw(TextGraphics graphics) {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#5e8d63"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#000000"));
         graphics.setForegroundColor(TextColor.Factory.fromString("#ff0000"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "P");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "H");
     }
 
 }

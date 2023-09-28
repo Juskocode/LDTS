@@ -21,7 +21,7 @@ public class MainMenuView extends DefaultMenuView {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
 
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(width/2 - 4, height / 3), "BOMBERMAN");
+        graphics.putString(new TerminalPosition(width/2 - 4, height / 3), "HERO");
         graphics.putString(new TerminalPosition(width/2 - 2, height / 2), "PLAY");
         graphics.putString(new TerminalPosition(width/2 - 2, height / 2 + 2), "CONTROLS");
         graphics.putString(new TerminalPosition(width/2 - 2, height / 2 + 4), "QUIT");
