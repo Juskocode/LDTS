@@ -46,7 +46,7 @@ public class Bomb extends Element {
         graphics.enableModifiers(SGR.BOLD);
         if(!detonated) {
             graphics.setForegroundColor(TextColor.Factory.fromString("#ff0000"));
-            graphics.putString(new TerminalPosition(position.getX(), position.getY()), "B");
+            graphics.putString(new TerminalPosition(position.getX(), position.getY()), "0");
         }
         else{
             graphics.setForegroundColor(TextColor.Factory.fromString("#00ffff"));

@@ -15,6 +15,6 @@ public class Block extends Element{
 
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#ce7e00"));
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "x");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), " ");
     }
 }

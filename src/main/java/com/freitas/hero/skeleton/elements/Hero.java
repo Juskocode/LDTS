@@ -10,6 +10,7 @@ public class Hero extends Element {
     private int coins;
     private int lives;
     private int bombs;
+    private int bombSize;
     private int bombCooldown;
     private int movementCoolDown;
 
@@ -33,6 +34,8 @@ public class Hero extends Element {
     }
 
     public Position getPosition(){return position;}
+    public int getBombSize(){return bombSize;}
+
     public int getBombPlaceCoolDown(){return bombCooldown;}
     public int getMovementCoolDown() {return movementCoolDown;}
     public void BombPlaceCoolDownSubtract() {bombCooldown--;}
@@ -56,6 +59,7 @@ public class Hero extends Element {
     public void MovementCoolDownSubtract() {movementCoolDown--;}
     public Position placeBomb(){
         bombCooldown = 2;
+        bombs--;
         return new Position(position.getX(),position.getY());
     }
 

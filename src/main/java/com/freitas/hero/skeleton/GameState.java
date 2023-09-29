@@ -124,7 +124,7 @@ public class GameState implements StateInterface {
 
     public void gameTick(){
         //detonate bombs and erase them
-        for (int i = 0;i < hero.getBombs();i++) {
+        for (int i = 0;i < bombs.size();i++) {
 
             bombs.get(i).decreaseTime();
 
@@ -237,6 +237,9 @@ public class GameState implements StateInterface {
         }
     }
 
+    private void addBomb(Position position, int size){
+        this.bombs.add(new Bomb(position.getX(), position.getY(), size));
+    }
 
     /**process key that was detected*/
     public String processCommand(int commandID) {
@@ -246,6 +249,10 @@ public class GameState implements StateInterface {
             case 3 -> movePlayer(hero.moveDown());
             case 4 -> movePlayer(hero.moveLeft());
             case 5 -> movePlayer(hero.moveRight());
+            case 6 -> { if (hero.getBombPlaceCoolDown()==0 && hero.getBombs() > 0){
+                            addBomb(hero.placeBomb(), hero.getBombSize());
+                      }
+            }
         }
 
         heroAddCoin();
