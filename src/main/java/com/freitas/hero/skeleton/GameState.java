@@ -85,7 +85,7 @@ public class GameState implements StateInterface {
         Random random = new Random();
         ArrayList<Coin> coins = new ArrayList<>();
         int key;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             key = random.nextInt(Freeindexs.size() - 1);
             coins.add(new Coin(Freeindexs.get(key).getFirst(), Freeindexs.get(key).getSecond()));
         }
