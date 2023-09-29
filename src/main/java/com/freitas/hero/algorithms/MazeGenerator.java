@@ -26,9 +26,9 @@ public class MazeGenerator {
     }
 
     //this is the main algorithm
-    //basicly it is BFS
-    //to shuffle the maze elements
-    public static char[][] generateMaze(int x, int y) {
+    //"recursive backtracking", for each iteration it shuffles the diretions,
+    //and creates a PATH WALL PATH pattern
+    public static char[][] generateMazeBFS(int x, int y) {
         Stack<Integer> stackX = new Stack<>();
         Stack<Integer> stackY = new Stack<>();
         maze[x][y] = PATH;
@@ -62,6 +62,44 @@ public class MazeGenerator {
             }
         }
         return maze;
+    }
+    private static void generateMazeRecursiveDivision(int startX, int startY, int endX, int endY) {
+        if (startX > endX || startY > endY) {
+            return;
+        }
+
+        // Check if the area to divide is wide enough
+        if (endX - startX < 2 || endY - startY < 2) {
+            return;
+        }
+
+        // Randomly choose whether to divide horizontally or vertically
+        boolean divideHorizontally = random.nextBoolean();
+
+        // Create a passage along the division line
+        int passageX = divideHorizontally ? random.nextInt(startX + 1, endX - 1) : random.nextInt(startX, endX);
+        int passageY = divideHorizontally ? random.nextInt(startY, endY) : random.nextInt(startY + 1, endY);
+
+        // Create a wall along the division line
+        int wallX = divideHorizontally ? passageX : random.nextInt(startX, endX);
+        int wallY = divideHorizontally ? random.nextInt(startY, endY) : passageY;
+
+        // Carve the passage and wall
+        for (int i = startX; i <= endX; i++) {
+            for (int j = startY; j <= endY; j++) {
+                if ((i == passageX && j == passageY) || (i == wallX && j == wallY)) {
+                    maze[j][i] = PATH;
+                } else {
+                    maze[j][i] = WALL;
+                }
+            }
+        }
+
+        // Recursively divide the four subgrids
+        generateMazeRecursiveDivision(startX, startY, divideHorizontally ? endX : wallX - 1, divideHorizontally ? wallY - 1 : endY);
+        generateMazeRecursiveDivision(divideHorizontally ? startX : wallX + 1, divideHorizontally ? wallY + 1 : startY, endX, endY);
+        generateMazeRecursiveDivision(divideHorizontally ? startX : wallX + 1, startY, endX, divideHorizontally ? wallY - 1 : wallY - 1);
+        generateMazeRecursiveDivision(startX, divideHorizontally ? startY : wallY + 1, divideHorizontally ? wallX - 1 : wallX - 1, endY);
     }
 
     private static boolean isValid(int x, int y) {

@@ -25,6 +25,7 @@ public class ControlMenuView extends DefaultMenuView {
         graphics.putString(new TerminalPosition(width/2 - 6, height / 3+4), "A : move left");
         graphics.putString(new TerminalPosition(width/2 - 6, height / 3+6), "S : move down");
         graphics.putString(new TerminalPosition(width/2 - 6, height / 3+8), "D : move right");
+        graphics.putString(new TerminalPosition(width/2 - 8, height / 3+10), "SPACE : put bomb");
         graphics.putString(new TerminalPosition(width/2 - 4, height / 3+14), "BACK");
 
         graphics.putString(new TerminalPosition(selectorPos.getX(), selectorPos.getY()), "->");

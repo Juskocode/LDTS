@@ -45,7 +45,7 @@ public class GameSkeleton {
     private final EndMenuView endMenuView;
     private final EndMenuState endMenu;
     //World
-    private GameView gameView;
+    private final GameView gameView;
     private GameState gameState;
 
     private final int width;
@@ -77,7 +77,7 @@ public class GameSkeleton {
         return controlMenu;
     }
 
-    public GameState getWorldState() {
+    public GameState getGameState() {
         return gameState;
     }
 
@@ -210,7 +210,9 @@ public class GameSkeleton {
      * Is called when a gameplay starts (when the active state is the worldState) and starts necessary loops for it.
      */
     private void runGameStart(){
+        timeSubLoop();
         gameTickLoop();
+        enemiesLoop();
         playerMoveLoop();
     }
 
@@ -243,11 +245,25 @@ public class GameSkeleton {
     }
 
     /**
+     * This method is responsible for the game timer, it starts the time and keeps decreasing it.
+     */
+
+    private void timeSubLoop(){
+        timeSubAuto = Executors.newSingleThreadScheduledExecutor();
+        timeSubAuto.scheduleAtFixedRate(() -> {
+            if (activeState==4) {
+                gameState.heroSubtractBombCoolDown();
+            }
+        }, 0, 1, TimeUnit.SECONDS);
+    }
+
+    /**
      * This method makes worldState object keep updating itself.
      */
     private void gameTickLoop(){
         gameStart = Executors.newSingleThreadScheduledExecutor();
         gameStart.scheduleAtFixedRate(() -> {
+            if (activeState==4) gameState.gameTick();
             if(gameState.getGameEndCode()==1){
                 endMenu.setMessageCode(0);
                 activeState = 3;
@@ -260,13 +276,21 @@ public class GameSkeleton {
             }
         }, 0, 5, TimeUnit.MILLISECONDS);
     }
-    
+
+    /**
+     * This method keeps enemies moving in a reasonable speed.
+     */
+    private void enemiesLoop(){
+        enemiesAuto = Executors.newSingleThreadScheduledExecutor();
+        enemiesAuto.scheduleAtFixedRate(() -> gameState.moveEnemies(), 0, 500, TimeUnit.MILLISECONDS);
+    }
 
     /**
      * This method run the function to reduce player wait time to move (so it can't go really fast)
      */
     private void playerMoveLoop(){
         playerMoveAuto = Executors.newSingleThreadScheduledExecutor();
+        playerMoveDetector.scheduleAtFixedRate(() -> gameState.heroSubtractMoveCoolDown(),0,10,TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -289,4 +313,5 @@ public class GameSkeleton {
     }
 
 }
+
 
