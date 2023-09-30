@@ -18,7 +18,7 @@ public class Enemy extends Element {
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#000000"));
         graphics.setForegroundColor(TextColor.Factory.fromString("#ff0000"));
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "&");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "@");
     }
 
     public Position move() {

@@ -18,7 +18,7 @@ public class Hero extends Element {
         super(x, y);
         this.coins = 0;
         this.lives = 0;
-        this.bombs = 3;
+        this.bombs = 300;
         this.bombCooldown = 0;
         this.movementCoolDown = 0;
     }
@@ -27,7 +27,7 @@ public class Hero extends Element {
     public void setCoins(int coins) {this.coins = coins;}
     public void heroAddCoin() {
         coins++;
-        if(coins==20){
+        if(coins == 10){
             coins = 0;
             lives++;
         }

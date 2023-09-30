@@ -15,7 +15,7 @@ public class Bomb extends Element {
     public Bomb(int x, int y, int size) {
         super(x,y);
         this.explosionSize = size;
-        this.timeToDetonate = 400;
+        this.timeToDetonate = 300;
         this.detonated = false;
     }
 
@@ -51,24 +51,23 @@ public class Bomb extends Element {
         else{
             graphics.setForegroundColor(TextColor.Factory.fromString("#00ffff"));
             graphics.putString(new TerminalPosition(position.getX(), position.getY()), "+");
-            for(int i = 1;i <= explosionSize;   i++){
-                graphics.putString(new TerminalPosition(position.getX()+i, position.getY()), "O");
-                graphics.putString(new TerminalPosition(position.getX()-i, position.getY()), "O");
-                graphics.putString(new TerminalPosition(position.getX(), position.getY() + i), "O");
-                graphics.putString(new TerminalPosition(position.getX() + 2*i, position.getY()), "X");
-                graphics.putString(new TerminalPosition(position.getX() - 2*i, position.getY()), "X");
-                graphics.putString(new TerminalPosition(position.getX(), position.getY() + 2*i), "X");
-                graphics.putString(new TerminalPosition(position.getX()+i, position.getY()-i), "O");
-                graphics.putString(new TerminalPosition(position.getX()+i, position.getY()+i), "O");
-                graphics.putString(new TerminalPosition(position.getX()-i, position.getY() + i), "O");
-                graphics.putString(new TerminalPosition(position.getX()-i, position.getY()- i), "O");
+                graphics.putString(new TerminalPosition(position.getX()+1, position.getY()), "O");
+                graphics.putString(new TerminalPosition(position.getX()-1, position.getY()), "O");
+                graphics.putString(new TerminalPosition(position.getX(), position.getY() + 1), "O");
+                graphics.putString(new TerminalPosition(position.getX() + 2*1, position.getY()), "X");
+                graphics.putString(new TerminalPosition(position.getX() - 2*1, position.getY()), "X");
+                graphics.putString(new TerminalPosition(position.getX(), position.getY() + 2*1), "X");
+                graphics.putString(new TerminalPosition(position.getX()+1, position.getY()-1), "O");
+                graphics.putString(new TerminalPosition(position.getX()+1, position.getY()+1), "O");
+                graphics.putString(new TerminalPosition(position.getX()-1, position.getY() + 1), "O");
+                graphics.putString(new TerminalPosition(position.getX()-1, position.getY()- 1), "O");
 
-                if(position.getY()-i>3) {
-                    graphics.putString(new TerminalPosition(position.getX(), position.getY() - i), "O");
-                    graphics.putString(new TerminalPosition(position.getX(), position.getY() - 2*i), "X");
+                if(position.getY()-1>3) {
+                    graphics.putString(new TerminalPosition(position.getX(), position.getY() - 1), "O");
+                    graphics.putString(new TerminalPosition(position.getX(), position.getY() - 2*1), "X");
 
                 }
-            }
+
         }
     }
 

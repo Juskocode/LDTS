@@ -17,7 +17,7 @@ public class PauseMenuView extends DefaultMenuView {
     }
 
     public void draw(TextGraphics graphics) {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#01579B"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#000055"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
 
         graphics.enableModifiers(SGR.BOLD);

@@ -15,8 +15,8 @@ public class EndMenuView extends DefaultMenuView {
 
     public EndMenuView(int width, int height){
         super(width, height);
-        selectorPos = new Position(width/2-6,height/3+14);
-        this.endMsg = "YOU LOST! :(";
+        selectorPos = new Position(width/2-10,height/3+14);
+        this.endMsg = "YOU DIED";
     }
 
     public String getEndMsg() {
@@ -24,7 +24,7 @@ public class EndMenuView extends DefaultMenuView {
     }
 
     public void draw(@NotNull TextGraphics graphics) {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#01579B"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#440000"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
 
         graphics.enableModifiers(SGR.BOLD);
@@ -35,8 +35,8 @@ public class EndMenuView extends DefaultMenuView {
 
     @Override
     public void update(int updateInfo) {
-        if (updateInfo == 0 ) { endMsg = "YOU LOST! :(";}
-        else { endMsg = "YOU WON! :-D";}
+        if (updateInfo == 0 ) { endMsg = "YOU DIED";}
+        else { endMsg = "YOU WON";}
     }
 
 }

@@ -11,6 +11,8 @@ import com.googlecode.lanterna.graphics.BasicTextImage;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
 
+import java.util.ArrayList;
+
 public class GameView {
     GameState gameState;
 
@@ -41,7 +43,8 @@ public class GameView {
         //draws the lists of different methods in the display
         for (Coin coin: gameState.getCoinsMap()) coin.draw(graphics);
         for (Wall wall : gameState.getWalls()) wall.draw(graphics);
-        for(Block block : gameState.getMaze()) block.draw(graphics);
+        for(Block block : gameState.getBlocks())
+                block.draw(graphics);
         for (Enemy enemy: gameState.getEnemies()) enemy.draw(graphics);
         for (Bomb bomb : gameState.getBombs()) bomb.draw(graphics);
 
